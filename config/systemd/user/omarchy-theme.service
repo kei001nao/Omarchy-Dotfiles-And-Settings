@@ -1,0 +1,6 @@
+[Unit]
+Description=Change omarchy theme randomly
+
+[Service]
+Type=oneshot
+ExecStart=/home/kei/.local/share/bin/omarchy_theme_changer.sh

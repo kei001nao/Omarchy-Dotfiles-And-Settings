@@ -1,0 +1,1 @@
+/home/kei/Downloads/Omarchy-251122-1/usr/share/aether/shaders/vintage.glsl
