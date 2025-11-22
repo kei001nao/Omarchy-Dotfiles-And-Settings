@@ -1,1 +1,0 @@
-/home/kei/Downloads/Omarchy-251122-1/usr/share/aether/shaders/hue-shift-90.glsl
