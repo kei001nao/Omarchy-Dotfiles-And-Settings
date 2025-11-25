@@ -41,11 +41,12 @@
 }
 
 #tray {
-  margin-right: 16px;
+  margin-right: 6px;
 }
 
 #bluetooth {
   margin-right: 17px;
+  margin-left: 4px;
 }
 
 #network {
@@ -53,7 +54,7 @@
 }
 
 #custom-expand-icon {
-  margin-right: 18px;
+  margin-right: 12px;
 }
 
 tooltip {
@@ -80,4 +81,14 @@ tooltip {
 
 #custom-screenrecording-indicator.active {
   color: #a55555;
+}
+
+/* EXTRA FIX! */
+#idle_inhibitor {
+margin-right: 12px;
+padding: 0 8px;
+/* color: #ffffff; */
+}
+#mpris {
+margin-right: 16px;
 }
