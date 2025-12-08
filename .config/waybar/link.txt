@@ -1,0 +1,61 @@
+ln -s -f ~/.config/waybar/templates/style-1.css ~/.config/waybar/style.css
+ln -s -f ~/.config/waybar/templates/config-1.jsonc ~/.config/waybar/config.jsonc
+
+readlink ~/.config/waybar/style.css |xargs basename
+
+
+
+#!/bin/bash
+
+WAYBAR_DIR="$HOME/.config/waybar"
+TEMPLATES_DIR="$WAYBAR_DIR/templates"
+CURRENT_LINK="$WAYBAR_DIR/style.css"
+
+# 1. templates ディレクトリ内の .css ファイルを動的に読み込み、配列に格納する
+# sort -V はバージョン番号（数字）を考慮してソートするオプション
+readarray -t STYLES < <(ls -1v "$TEMPLATES_DIR"/*.css | xargs basename)
+
+NUM_STYLES=${#STYLES[@]}
+
+# ファイルが1つ以下しかなければ何もしない
+if [ "$NUM_STYLES" -le 1 ]; then
+    echo "切り替え可能なスタイルが2つ以上ありません。"
+    exit 1
+fi
+
+# 2. 現在のリンク先ファイル名を取得する
+CURRENT_TARGET=$(readlink "$CURRENT_LINK" | basename)
+
+# 3. 現在のファイルがリストの何番目かを見つける
+CURRENT_INDEX=-1
+for i in "${!STYLES[@]}"; do
+   if [[ "${STYLES[$i]}" == "$CURRENT_TARGET" ]]; then
+       CURRENT_INDEX=$i
+       break
+   fi
+done
+
+# もし現在のリンク先がリストに見つからなかった場合（予期せぬエラー）、最初のスタイルに戻す
+if [ "$CURRENT_INDEX" -eq -1 ]; then
+    echo "現在のリンク先が見つかりませんでした。最初のスタイルに戻します。"
+    NEXT_INDEX=0
+else
+    # 4. 次のインデックスを計算する (最後 -> 最初に戻る)
+    NEXT_INDEX=$(((CURRENT_INDEX + 1) % NUM_STYLES))
+fi
+
+NEXT_STYLE=${STYLES[$NEXT_INDEX]}
+NEXT_TARGET_PATH="$TEMPLATES_DIR/$NEXT_STYLE"
+
+# 5. 既存のリンクを削除し、新しいリンクを張り直す
+rm "$CURRENT_LINK"
+ln -s "$NEXT_TARGET_PATH" "$CURRENT_LINK"
+
+echo "スタイルを $NEXT_STYLE に切り替えました。"
+
+# Waybar に設定のリロードを指示するコマンド（必要に応じてコメントアウトを外す）
+# killall -SIGUSR2 waybar
+
+
+
+

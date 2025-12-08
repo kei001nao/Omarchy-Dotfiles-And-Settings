@@ -1,0 +1,3 @@
+#[Geolocation]
+latitude = 35.689527     # Geographic latitude (auto-detected on first run)
+longitude = 139.691681   # Geographic longitude (use 'sunsetr geo' to change)

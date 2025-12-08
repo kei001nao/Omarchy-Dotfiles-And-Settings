@@ -1,0 +1,62 @@
+# Firefox Install (Japanese Language)
+sudo pacman -S firefox firefox-i18n-ja
+
+# Paru Install
+yay -S paru
+
+# Package Install
+sudo pacman -S thunar file-roller gvfs tumbler poppler-glib thunar-archive-plugin thunar-media-tags-plugin thunar-vcs-plugin thunar-shares-plugin thunar-volman kate nano yazi unarchiver 7zip resvg cmake cpio meson fcitx5-im fcitx5-mozc npm nodejs visual-studio-code-bin transmission-cli transmission-gtk transmission-qt nwg-look hyprshot
+
+yay -S gnome-control-center gvfs-google tema-git pyprland spotube-bin notnative-app-bin sunsetr
+
+#Hyprland Plugin Install
+hyprpm update
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm enable hyprexpo
+hyprpm enable hyprscrolling
+
+#Gemini-CLI Install
+sudo npm install -g @google/gemini-cli
+
+#KVM/QEMU Install
+sudo pacman -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer edk2-ovmf dnsmasq swtpm tuned ntfs-3g nftables bridge-utils openbsd-netcat libguestfs
+
+sudo usermod -aG libvirt,kvm $(whoami)
+
+reboot
+
+
+#KVM/QEMU Start & Wi-Fi Settings
+sudo systemctl enable --now libvirtd.service
+
+sudo virsh net-list --all
+sudo virsh net-start default
+sudo virsh net-autostart default
+sudo virsh net-list --all
+
+
+#--------------------------------------------
+#Powertop Install & Caribration
+sudo pacman -S powertop
+sudo powertop --calibrate
+
+#Powertop Settings
+sudo nano /etc/systemd/system/powertop.service
+#*****************************#
+[Unit]
+Description=Powertop tunings
+
+[Service]
+ExecStart=/usr/bin/powertop --auto-tune
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+#*****************************#
+
+sudo systemctl enable --now powertop.service
+
+#--------------------------------------------
+
+#Start Gnome Control Center
+env XDG_CURRENT_DESKTOP=GNOME gnome-control-center --verbose

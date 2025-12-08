@@ -1,0 +1,6 @@
+# copy tema settings
+sudo cp -b ~/Omarchy-Dotfiles-And-Settings/usr/share/tema/templates/*.* /usr/share/tema/templates/
+
+sudo cp -b ~/Omarchy-Dotfiles-And-Settings/usr/share/tema/src/services/*.* /usr/share/tema/src/services/
+
+

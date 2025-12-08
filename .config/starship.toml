@@ -28,7 +28,7 @@ add_newline = false
 command_timeout = 200
 
 [username]
-style_user = 'fg:#8AB4FB'
+style_user = 'fg:#CECE78'
 style_root = 'red bold'
 format = '[$user]($style)'
 disabled = false
@@ -36,7 +36,7 @@ show_always = true
 
 [hostname]
 ssh_only = false
-format = '[@$hostname$ssh_symbol](fg:#8AB4FB) '
+format = '[@$hostname$ssh_symbol](fg:#CECE78) '
 trim_at = '.companyname.com'
 disabled = false
 ssh_symbol = ' '
