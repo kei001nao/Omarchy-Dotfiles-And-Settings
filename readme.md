@@ -61,17 +61,27 @@ This repository contains personal desktop environment settings for Omarchy (Arch
 
 This setup utilizes the following key components and configurations:
 
-*   **Base Theme & Waybar:** [omarchy-oxford-theme](https://github.com/HANCORE-linux/omarchy-oxford-theme)
-*   **Ghostty Shader:** [Cursor shaders for ghostty](https://github.com/sahaj-b/ghostty-cursor-shaders)
-*   **File Managers:** Thunar, Yazi
-*   **Editors:** Kate, nano, VSCode
-*   **Hyprland Plugins:** Hyprscrolling, Hyprexpo
-*   **Hyprland Extensions:** Pyprland
-*   **Blue Light Filter:** sunsetr
-*   **Input Method:** fcitx5, mozc
-*   **Other**: [omarchy-theme-hook][https://github.com/imbypass/omarchy-theme-hook/tree/main)], [tema][https://github.com/bjarneo/tema]
-<details>
-<summary>日本語</summary>
+* **Base Theme & Waybar:** [omarchy-oxford-theme](https://github.com/HANCORE-linux/omarchy-oxford-theme)
+
+* **Ghostty Shader:** [Cursor shaders for ghostty](https://github.com/sahaj-b/ghostty-cursor-shaders)
+
+* **File Managers:** Thunar, Yazi
+
+* **Editors:** Kate, nano, VSCode
+
+* **Hyprland Plugins:** Hyprscrolling, Hyprexpo
+
+* **Hyprland Extensions:** Pyprland
+
+* **Blue Light Filter:** sunsetr
+
+* **Input Method:** fcitx5, mozc
+
+* **Other**: [omarchy-theme-hook](https://github.com/imbypass/omarchy-theme-hook/tree/main), [tema](https://github.com/bjarneo/tema)
+
+  <details>
+  <summary>日本語</summary>
+
 
 このセットアップは、以下の主要なコンポーネントと設定を利用しています。
 
@@ -83,7 +93,7 @@ This setup utilizes the following key components and configurations:
 *   **Hyprland 拡張機能:** Pyprland
 *   **ブルーライトフィルター:** sunsetr
 *   **入力メソッド:** fcitx5, mozc
-*   **その他**: [omarchy-theme-hook][https://github.com/imbypass/omarchy-theme-hook/tree/main)], [tema][https://github.com/bjarneo/tema].
+*   **その他**: [omarchy-theme-hook](https://github.com/imbypass/omarchy-theme-hook/tree/main), [tema](https://github.com/bjarneo/tema)
 
 </details>
 
@@ -449,3 +459,4 @@ This is a guide to setting up KVM/QEMU with `virt-manager`.
     nvim ~/.config/hypr/monitors.conf
     ```
 </details>
+
