@@ -8,23 +8,11 @@ This repository contains personal desktop environment settings for Omarchy (Arch
 </details>
 
 ## Screenshots
-<details>
-<summary>日本語</summary>
- 
-## スクリーンショット
-</details>
-
 ![Screenshot 1](./assets/2025-12-09-024443_hyprshot.png)
 
 ![Screenshot 2](./assets/2025-12-09-024739_hyprshot.png)
 
 ## Installation
-<details>
-<summary>日本語</summary>
-
-## インストール
-</details>
-
 1.  **Clone the repository:**
     
     ```bash
@@ -38,7 +26,7 @@ This repository contains personal desktop environment settings for Omarchy (Arch
     ```bash
     git clone https://github.com/kei001nao/Omarchy-Dotfiles-And-Settings.git ~/.dotfiles
     ```
-</details>
+    </details>
     
 2.  **Run the installer:**
     The installer will install packages, copy configuration files.
@@ -62,7 +50,7 @@ This repository contains personal desktop environment settings for Omarchy (Arch
     ./install.sh
     ```
     *注意: インストールされるアプリケーションをカスタマイズしたい場合は、スクリプトを実行する前に `install` ディレクトリ内のパッケージリスト (`pkglist.txt`, `aur_pkglist.txt`) を確認してください。*
-</details>
+    </details>
 
 ## Key Components
 <details>
@@ -81,6 +69,7 @@ This setup utilizes the following key components and configurations:
 *   **Hyprland Extensions:** Pyprland
 *   **Blue Light Filter:** sunsetr
 *   **Input Method:** fcitx5, mozc
+*   **Other**: [omarchy-theme-hook][https://github.com/imbypass/omarchy-theme-hook/tree/main)], [tema][https://github.com/bjarneo/tema]
 <details>
 <summary>日本語</summary>
 
@@ -94,6 +83,8 @@ This setup utilizes the following key components and configurations:
 *   **Hyprland 拡張機能:** Pyprland
 *   **ブルーライトフィルター:** sunsetr
 *   **入力メソッド:** fcitx5, mozc
+*   **その他**: [omarchy-theme-hook][https://github.com/imbypass/omarchy-theme-hook/tree/main)], [tema][https://github.com/bjarneo/tema].
+
 </details>
 
 ## What the Installer Does
@@ -110,7 +101,6 @@ The `install.sh` script automates the following tasks:
 -   **Backs Up Existing Files:** Any existing files that would be overwritten are backed up to `~/setup_backup_YYYY-MM-DD`.
 <details>
 <summary>日本語</summary>
-
 `install.sh` スクリプトは、以下のタスクを自動化します。
 
 -   **パッケージのインストール:** `pkglist.txt`（公式リポジトリから）と `aur_pkglist.txt`（AURから）に記載されているすべてのパッケージをインストールします。
@@ -128,7 +118,6 @@ The `install.sh` script automates the following tasks:
 This section describes the manual setup required after running the installer.
 <details>
 <summary>日本語</summary>
-
 このセクションでは、インストーラー実行後に必要な手動設定について説明します。
 </details>
 
@@ -162,15 +151,9 @@ To apply custom styles (`userChrome.css`) to Firefox, you must run a separate sc
     chmod +x setup-firefox.sh
     ./setup-firefox.sh
     ```
-</details>
+    </details>
 
 ### Hyprland Plugins Installation
-<details>
-<summary>日本語</summary>
-
-### Hyprlandプラグインのインストール
-</details>
-
 Install and enable official plugins `hyprexpo` and `hyprscrolling`.
 
 1.  **Update `hyprpm`:**
@@ -193,6 +176,7 @@ Install and enable official plugins `hyprexpo` and `hyprscrolling`.
 exec-once = hyprpm reload -n
 ```
 *For more details on plugins, refer to the official plugin website.*
+
 <details>
 <summary>日本語</summary>
 
@@ -235,6 +219,8 @@ To display Google Drive in Thunar:
     env XDG_CURRENT_DESKTOP=GNOME gnome-control-center --verbose
     ```
     
+    
+    
 2.  **Add Google Account:** In Gnome Control Center, go to "Online Accounts", select "Google", and sign in.
 
 3.  **Verify:** After granting access, confirm that a tree with your Google account name has been added under "Devices" in Thunar.
@@ -255,12 +241,6 @@ ThunarにGoogle Driveを表示させるには:
 </details>
 
 ### KVM/QEMU (virt-manager) Setup
-<details>
-<summary>日本語</summary>
-
-### KVM/QEMU (virt-manager) の設定
-</details>
-
 This is a guide to setting up KVM/QEMU with `virt-manager`.
 
 1.  **Installation**

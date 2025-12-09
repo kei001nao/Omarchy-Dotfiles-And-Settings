@@ -48,6 +48,9 @@ if ! command -v yay &> /dev/null; then
 fi
 yay -S --needed --noconfirm - < "$AUR_PKGLIST"
 
+info "Installing omarchy-theme-hook"
+curl -fsSL https://imbypass.github.io/omarchy-theme-hook/install.sh | bash
+
 info "Package installation complete."
 
 
