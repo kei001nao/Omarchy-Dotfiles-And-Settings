@@ -18,16 +18,7 @@ This repository contains personal desktop environment settings for Omarchy (Arch
     ```bash
     git clone https://github.com/kei001nao/Omarchy-Dotfiles-And-Settings.git ~/.dotfiles
     ```
-<details>
-<summary>日本語</summary>
 
-1.  **リポジトリをクローンする:**
-    
-    ```bash
-    git clone https://github.com/kei001nao/Omarchy-Dotfiles-And-Settings.git ~/.dotfiles
-    ```
-    </details>
-    
 2.  **Run the installer:**
     The installer will install packages, copy configuration files.
     
@@ -41,6 +32,12 @@ This repository contains personal desktop environment settings for Omarchy (Arch
 <details>
 <summary>日本語</summary>
 
+1.  **リポジトリをクローンする:**
+    
+    ```bash
+    git clone https://github.com/kei001nao/Omarchy-Dotfiles-And-Settings.git ~/.dotfiles
+    ```
+
 2.  **インストーラーを実行する:**
     インストーラーはパッケージをインストールし、設定ファイルをコピーします。
     
@@ -53,35 +50,24 @@ This repository contains personal desktop environment settings for Omarchy (Arch
     </details>
 
 ## Key Components
-<details>
-<summary>日本語</summary>
-
-## 主要なコンポーネント
-</details>
 
 This setup utilizes the following key components and configurations:
 
 * **Base Theme & Waybar:** [omarchy-oxford-theme](https://github.com/HANCORE-linux/omarchy-oxford-theme)
-
 * **Ghostty Shader:** [Cursor shaders for ghostty](https://github.com/sahaj-b/ghostty-cursor-shaders)
-
 * **File Managers:** Thunar, Yazi
-
 * **Editors:** Kate, nano, VSCode
-
 * **Hyprland Plugins:** Hyprscrolling, Hyprexpo
-
 * **Hyprland Extensions:** Pyprland
-
 * **Blue Light Filter:** sunsetr
-
 * **Input Method:** fcitx5, mozc
-
 * **Other**: [omarchy-theme-hook](https://github.com/imbypass/omarchy-theme-hook/tree/main), [tema](https://github.com/bjarneo/tema)
 
-  <details>
-  <summary>日本語</summary>
 
+<details>
+<summary>日本語</summary>
+
+## 主要なコンポーネント
 
 このセットアップは、以下の主要なコンポーネントと設定を利用しています。
 
@@ -98,19 +84,19 @@ This setup utilizes the following key components and configurations:
 </details>
 
 ## What the Installer Does
-<details>
-<summary>日本語</summary>
-
-## インストーラーの動作
-</details>
 
 The `install.sh` script automates the following tasks:
 
 -   **Installs Packages:** Installs all packages listed in `pkglist.txt` (from official repositories) and `aur_pkglist.txt` (from the AUR).
 -   **Copies Configuration:** All configuration files and directories are copied to your home directory (`~/`).
 -   **Backs Up Existing Files:** Any existing files that would be overwritten are backed up to `~/setup_backup_YYYY-MM-DD`.
+
+
 <details>
 <summary>日本語</summary>
+
+## インストーラーの動作
+
 `install.sh` スクリプトは、以下のタスクを自動化します。
 
 -   **パッケージのインストール:** `pkglist.txt`（公式リポジトリから）と `aur_pkglist.txt`（AURから）に記載されているすべてのパッケージをインストールします。
@@ -119,24 +105,10 @@ The `install.sh` script automates the following tasks:
 </details>
 
 ## Manual Configuration
-<details>
-<summary>日本語</summary>
-
-## 手動設定
-</details>
 
 This section describes the manual setup required after running the installer.
-<details>
-<summary>日本語</summary>
-このセクションでは、インストーラー実行後に必要な手動設定について説明します。
-</details>
 
 ### Firefox Customization
-<details>
-<summary>日本語</summary>
-
-### Firefoxのカスタマイズ
-</details>
 
 To apply custom styles (`userChrome.css`) to Firefox, you must run a separate script **after** starting Firefox at least once.
 
@@ -148,20 +120,6 @@ To apply custom styles (`userChrome.css`) to Firefox, you must run a separate sc
     chmod +x setup-firefox.sh
     ./setup-firefox.sh
     ```
-<details>
-<summary>日本語</summary>
-
-カスタムスタイル（`userChrome.css`）をFirefoxに適用するには、**Firefoxを最低一度は起動した後で**、別のスクリプトを実行する必要があります。
-
-1.  **Firefoxを起動:** 通常通りFirefoxを起動し、ユーザープロファイルを作成します。
-2.  **Firefoxセットアップスクリプトを実行:**
-    
-    ```bash
-    cd ~/.dotfiles/install
-    chmod +x setup-firefox.sh
-    ./setup-firefox.sh
-    ```
-    </details>
 
 ### Hyprland Plugins Installation
 Install and enable official plugins `hyprexpo` and `hyprscrolling`.
@@ -187,9 +145,28 @@ exec-once = hyprpm reload -n
 ```
 *For more details on plugins, refer to the official plugin website.*
 
+
 <details>
 <summary>日本語</summary>
 
+## 手動設定
+
+このセクションでは、インストーラー実行後に必要な手動設定について説明します。
+
+### Firefoxのカスタマイズ
+
+カスタムスタイル（`userChrome.css`）をFirefoxに適用するには、**Firefoxを最低一度は起動した後で**、別のスクリプトを実行する必要があります。
+
+1.  **Firefoxを起動:** 通常通りFirefoxを起動し、ユーザープロファイルを作成します。
+2.  **Firefoxセットアップスクリプトを実行:**
+    
+    ```bash
+    cd ~/.dotfiles/install
+    chmod +x setup-firefox.sh
+    ./setup-firefox.sh
+    ```
+
+### Hyprland plugin インストール
 公式プラグイン `hyprexpo` と `hyprscrolling` をインストールして有効化します。
 
 1.  **`hyprpm`をアップデート:**
@@ -215,11 +192,6 @@ exec-once = hyprpm reload -n
 </details>
 
 ### Thunar Google Drive Integration
-<details>
-<summary>日本語</summary>
-
-### ThunarのGoogle Drive連携
-</details>
 
 To display Google Drive in Thunar:
 
@@ -228,14 +200,15 @@ To display Google Drive in Thunar:
     ```bash
     env XDG_CURRENT_DESKTOP=GNOME gnome-control-center --verbose
     ```
-    
-    
-    
+
 2.  **Add Google Account:** In Gnome Control Center, go to "Online Accounts", select "Google", and sign in.
 
 3.  **Verify:** After granting access, confirm that a tree with your Google account name has been added under "Devices" in Thunar.
+
 <details>
 <summary>日本語</summary>
+
+### ThunarのGoogle Drive連携
 
 ThunarにGoogle Driveを表示させるには:
 
@@ -353,8 +326,11 @@ This is a guide to setting up KVM/QEMU with `virt-manager`.
     ```bash
     nvim ~/.config/hypr/monitors.conf
     ```
+
 <details>
 <summary>日本語</summary>
+
+### KVM/QEMU (virt-manager) セットアップ
 
 これは `virt-manager` を使ってKVM/QEMUをセットアップするためのガイドです。
 
@@ -459,4 +435,3 @@ This is a guide to setting up KVM/QEMU with `virt-manager`.
     nvim ~/.config/hypr/monitors.conf
     ```
 </details>
-
