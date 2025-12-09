@@ -140,7 +140,7 @@ Install and enable official plugins `hyprexpo` and `hyprscrolling`.
 
 *Note: Don't forget to add the following line to your `hyprland.conf` or similar configuration file:*
 
-```toml
+```
 exec-once = hyprpm reload -n
 ```
 *For more details on plugins, refer to the official plugin website.*
@@ -185,7 +185,7 @@ exec-once = hyprpm reload -n
 
 *注意: `hyprland.conf` などの設定ファイルに以下の行を追加するのを忘れないでください:*
 
-```toml
+```
 exec-once = hyprpm reload -n
 ```
 *プラグインの詳細は、公式のプラグインウェブサイトを参照してください。*
