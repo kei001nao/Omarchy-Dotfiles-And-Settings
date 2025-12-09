@@ -1,362 +1,210 @@
-# Omarchy カスタマイズ（日本語対応）
+# maccha - omarchy theme & dotfiles
 
----
+This repository contains personal desktop environment settings for Omarchy (Arch Linux & Hyprland).
 
-## **0. アップデート**
+## Screenshots
 
-```bash
-sudo pacman -Syu
-または、Omarchyメニュー（SUPER+Alt+Space）から [Update]→[Omarchy]
-```
+![Screenshot 1](./assets/2025-12-09-024443_hyprshot.png)
 
----
+![Screenshot 2](./assets/2025-12-09-024739_hyprshot.png)
 
-## **1. Firefoxインストール**
+## Installation
 
-```bash
-sudo pacman -S firefox firefox-i18n-ja
-```
+1.  **Clone the repository:**
+    
+    ```bash
+    git clone https://github.com/kei001nao/Omarchy-Dotfiles-And-Settings.git ~/.dotfiles
+    ```
+    
+2.  **Run the installer:**
+    The installer will install packages, copy configuration files.
+    
+    ```bash
+    cd ~/.dotfiles/install
+    chmod +x install.sh
+    ./install.sh
+    ```
+    *Note: Review the package lists (`pkglist.txt`, `aur_pkglist.txt`) in the `install` directory before running the script if you wish to customize the installed applications.*
 
----
+## Key Components
 
-## **2. yayインストール**
+This setup utilizes the following key components and configurations:
 
-Omarchyはインストール済みなので、必要なし
+*   **Base Theme & Waybar:** [omarchy-oxford-theme](https://github.com/HANCORE-linux/omarchy-oxford-theme)
+*   **Ghostty Shader:** [Cursor shaders for ghostty](https://github.com/sahaj-b/ghostty-cursor-shaders)
+*   **File Managers:** Thunar, Yazi
+*   **Editors:** Kate, nano, VSCode
+*   **Hyprland Plugins:** Hyprscrolling, Hyprexpo
+*   **Hyprland Extensions:** Pyprland
+*   **Blue Light Filter:** sunsetr
+*   **Input Method:** fcitx5, mozc
 
-```bash
-`sudo pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-rm -rf yay
-```
+## What the Installer Does
 
----
+The `install.sh` script automates the following tasks:
 
-## **3. paruインストール**
+-   **Installs Packages:** Installs all packages listed in `pkglist.txt` (from official repositories) and `aur_pkglist.txt` (from the AUR).
+-   **Copies Configuration:** All configuration files and directories are copied to your home directory (`~/`).
+-   **Backs Up Existing Files:** Any existing files that would be overwritten are backed up to `~/setup_backup_YYYY-MM-DD`.
 
-```bash
-yay -S paru
-```
+## Manual Configuration
 
-以降、AURパッケージインストールは、`yay`、`paru` どちらでも良い
+This section describes the manual setup required after running the installer.
 
----
+### Firefox Customization
 
-## **4. いろいろインストール**
+To apply custom styles (`userChrome.css`) to Firefox, you must run a separate script **after** starting Firefox at least once.
 
-**ファイルマネージャー**
- GUI: `thunar` / TUI: `yazi`
+1.  **Start Firefox:** Launch Firefox normally to create a user profile.
+2.  **Run the Firefox setup script:**
+    
+    ```bash
+    cd ~/.dotfiles/install
+    chmod +x setup-firefox.sh
+    ./setup-firefox.sh
+    ```
 
-**テキストエディター**
- GUI: `kate` / TUI: `nano` (NeoVimはインストール済み)
+### Hyprland Plugins Installation
 
-**日本語入力メソッド**`fcitx5`, `mozc`
+Install and enable official plugins `hyprexpo` and `hyprscrolling`.
 
-**AI**`gemini-cli`
-
-**その他**
-
-Hyprland プラグインで必要なもの：`cmake` `cpio` `meson`
-
-```bash
-sudo pacman -S thunar file-roller gvfs tumbler poppler-glib thunar-archive-plugin thunar-media-tags-plugin thunar-vcs-plugin thunar-shares-plugin thunar-volman kate nano yazi unarchiver 7zip resvg cmake cpio meson fcitx5-im fcitx5-mozc npm nodejs
-```
-
-```bash
-npm install -g @google/gemini-cli
-```
-
-thunarにGoogle Driveを表示させるツール
-`tema`（Omarchy用のWallpaper Selector）
-
-```bash
-yay -S gnome-control-center gvfs-google tema-git
-```
-
-**thunarにGoogle Driveを表示させる方法：**
-
-Gnome Control Center起動
-
-```bash
-env XDG_CURRENT_DESKTOP=GNOME gnome-control-center --verbose
-```
-
-Online Account で google を選んでサインインする
-アクセスの許可をした後、thunar の Devices に Googleアカウント名のツリーが追加されていることを確認
-
----
-
-## **5. Hyprland Plugins**
-
-公式プラグインの`hyprexpo`と`hyprscrolling`をインストール
-
-1. **アップデート:**
+1.  **Update :**
     
     ```bash
     hyprpm update
     ```
     
-2. **インストール＆有効化:**
+2.  **Install & Enable Plugins:**
     
     ```bash
     hyprpm add https://github.com/hyprwm/hyprland-plugins
     hyprpm enable hyprexpo
     hyprpm enable hyprscrolling
     ```
-    
 
-※ hyprlan.conf などに以下の記述を忘れないこと
+*Note: Don't forget to add the following line to your `hyprland.conf` or similar configuration file:*
 
-```
+```toml
 exec-once = hyprpm reload -n
 ```
+*For more details on plugins, refer to the official plugin website.*
 
-※ プラグインの記述は、プラグインの公式サイトを参照
+### Thunar Google Drive Integration
 
----
+To display Google Drive in Thunar:
 
-## **6. 仮想マシン (QEMU/KVM)**
-
-参照：[https://note.com/dreamy_clam206/n/n0dfbb225652e](https://note.com/dreamy_clam206/n/n0dfbb225652e)
-※ hyprlockで正常動作しなかったので、最終的にはアンインストールした
-
-1. **インストール:**
+1.  **Launch Gnome Control Center:**
     
+    ```bash
+    env XDG_CURRENT_DESKTOP=GNOME gnome-control-center --verbose
     ```
+    
+2.  **Add Google Account:** In Gnome Control Center, go to "Online Accounts", select "Google", and sign in.
+
+3.  **Verify:** After granting access, confirm that a tree with your Google account name has been added under "Devices" in Thunar.
+
+
+### KVM/QEMU (virt-manager) Setup
+
+This is a guide to setting up KVM/QEMU with `virt-manager`.
+
+1.  **Installation**
+
+    Install the necessary packages:
+    ```bash
     sudo pacman -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer edk2-ovmf dnsmasq swtpm tuned ntfs-3g nftables bridge-utils openbsd-netcat libguestfs
     ```
-    
-    ★libosinfo iptables は入れない（すでに入っている）
-    　ebtablesと競合する可能性あり
-    
-    自分をグループ libvirt, kvm に追加
-    
-    ```
+    *Note: `libosinfo` and `iptables` are often pre-installed. They are omitted here to avoid potential conflicts with `ebtables`.*
+
+    Add your user to the `libvirt` and `kvm` groups:
+    ```bash
     sudo usermod -aG libvirt,kvm $(whoami)
     ```
-    
-    もしグループがなかったら、追加する
-    
-    ```
-    newgrp libvirt
-    ```
-    
-    設定が終わったら、Reboot
-    
-2. **サービス起動:**
-    
-    ```
+    *Note: If the `libvirt` group does not exist, you may need to re-login for the group changes to apply. You can verify groups with `cat /etc/group | cut -d: -f 1` and apply group changes to your current session with `newgrp libvirt`.*
+
+    **Reboot** after completing this step.
+
+2.  **Start the Service**
+
+    Enable and start the `libvirtd` service:
+    ```bash
     sudo systemctl enable --now libvirtd.service
     ```
-    
-3. **ネットワークの確認＆NAT起動:**
-特にWi-Fiの場合は、要確認
-    1. ネットワーク確認
-        
-        ```
-        sudo virsh net-list --all
-        ```
-        
-    2. Wi-Fi (NAT) 起動
-        
-        ```
-        sudo virsh net-start default
-        sudo virsh net-autostart default
-        ```
-        
-    
-    このようになる
-    
+
+3.  **Network Configuration (NAT)**
+
+    Especially for Wi-Fi connections, ensure the default network is active.
+
+    Check network status:
+    ```bash
+    sudo virsh net-list --all
     ```
-    ⋊> ~ sudo virsh net-list --all
-    Name   State   Autostart  Persistent
-    \----------------------------------------------
-     default  inactive  no     yes
-    
-    ⋊> ~ sudo virsh net-start default
-    Network default started
-    
-    ⋊> ~ sudo virsh net-autostart default
-    Network default marked as autostarted
-    
-    ⋊> ~ sudo virsh net-list --all
-     Name   State  Autostart  Persistent
-    \--------------------------------------------
-     default  active  yes     yes
+
+    Start the default network and set it to autostart:
+    ```bash
+    sudo virsh net-start default
+    sudo virsh net-autostart default
     ```
     
-    defaultのactive がともに yes になっていればOK
-    
-4. **iptableの確認**
-network.confの修正
-    
+    Verify that the `default` network is `active` and `autostart` is `yes`:
     ```
+    $ sudo virsh net-list --all
+     Name      State    Autostart   Persistent
+    --------------------------------------------
+     default   active   yes         yes
+    ```
+
+4.  **Firewall Backend Configuration**
+
+    Edit `/etc/libvirt/network.conf` to use the `iptables` backend.
+    ```bash
     sudo nano /etc/libvirt/network.conf
     ```
-    
-    修正：　firewall_backend = “iptables”
-    
-    最後の行をコメントアウト・修正する
-    
-5. **最終確認**
-    
+    Find and modify the following line (uncomment if necessary):
     ```
+    firewall_backend = "iptables"
+    ```
+
+5.  **Final Validation**
+
+    Run the host validation tool:
+    ```bash
     sudo virt-host-validate qemu
     ```
-    
-    →Reboot
-    
-6. **Virtual Machine Manager 起動**　（virt-manager）
-7. **ゲストOSインストール**
-8. **ゲスト側インストール**（Arch系）
-    
-    ```
+    **Reboot** your system again.
+
+6.  **Launch Virtual Machine Manager**
+
+    You can now start `virt-manager`.
+
+7.  **Guest OS Installation**
+
+    Proceed with installing your guest OS in `virt-manager`.
+
+8.  **Guest OS Setup (Arch-based)**
+
+    Inside the Arch-based guest, install the SPICE agent for better integration:
+    ```bash
     sudo pacman -S spice-vdagent
-    sudo systemctl enable spice-vdagentd.service
-    sudo systemctl start spice-vdagentd.service
+    sudo systemctl enable --now spice-vdagentd.service
     ```
-    
-9. **ホスト側 virt-manager 設定**
-Dislpay Spice　Type : Spice server　Listen Type : None
-Video　Model: Virtio
-10. **ゲスト側 hyprland設定**
-    1. モニタースペック確認
-        
-        ```
-        htprctl monitors
-        ```
-        
-    2. monitor.congなどの修正
-        
-        ```
-        nvim ~/.config/hypr
-        ```
-        
 
----
+9.  **Host `virt-manager` Settings (for Guest)**
 
-## **7. Githubへのアップロード**
+    For optimal performance, configure the guest's hardware in `virt-manager`:
+    -   **Display Spice** -> Type: `Spice server`, Listen Type: `None`
+    -   **Video** -> Model: `Virtio`
 
-1. **ブラウザからGithubへのログイン**
-    
-    Googleアカウントでログイン
-    
-2. **リポジトリの新規作成**
-右上の＋アイコンから [New repository]
-3. **設定＆作成**
-・Repository name: リポジトリ名。 availableが表示されていたらOK
-・Configuration:　Choose visibility : PublicかPrivateかを選択
-あとは、そのままでも良い
-    
-    [Create repository]で作成
-    
-4. **ローカルでの作業 1**
-・アップロードするファイルを入れるディレクトリを作成
-・作成したディレクトリにアップロードするファイル・ディレクトリをコピー
-5. **ローカルでの作業 2 (git)**
-・アップロードするディレクトリをカレントにする
-    
-    ```
-    cd /path/
-    ```
-    
-    ・以下、gitの処理
-    
-    ```
-    git init
-    git add .
-    git commit -m "first commit"
-    git branch -M main
-    git remote add origin https://github.com/*******/*****.git
-    ```
-    
-    ※コミット時にメールアドレス、パスワードを設定するよう促された場合は、git config で追加すること
-    
-6. **AccessTokenの取得**
-ブラウザでgithubにログイン → 右の自分のアイコン → [Settings] →
-左下の[Developer settings] → 左の[Personal access tokens] → [Fine-grained tokens] →
-右側の[Generate new token] →
-    
-    ・Token name: 
-    ・Expilation: 期間は無制限にしないことが推奨
-    ・Only select repository: どのリポジトリへのアクセスなのか。複数選択可
-    ・Permissions:　Add permissions: Contents で Read and write
-    
-    →[Generate token]
-    
-    表示されたTokenをテキストファイルなどにコピー
-    クラウドなどに保存しておくこと
-    
-7. **ファイルをアップロード**
-アップロードするディレクトリをカレントにしてプッシュする
-    
-    ```
-    cd /path/
-    git push -u origin main
-    ```
-    
-8. **更新**
-    
-    ```
-    cd /path/
-    git add .
-    git commit -m "コメント"
-    git push
-    ```
-    
+10. **Guest OS Hyprland Configuration**
 
----
+    Inside the guest, adjust your Hyprland configuration for the virtual monitor.
 
-## **8. Powertopによる省エネ設定**
+    Check the monitor specifications:
+    ```bash
+    hyprctl monitors
+    ```
 
-1. **Powertopインストール**
-    
-    ```
-    sudo pacman -S powertop
-    ```
-    
-2. **キャリブレーション**
-    
-    ```
-    sudo powertop --calibrate
-    ```
-    
-3. **サービス作成**
-/etc/systemd/system/powertop.service
-    
-    ```
-    [Unit]
-    Description=Powertop tunings
-    
-    [Service]
-    ExecStart=/usr/bin/powertop --auto-tune
-    RemainAfterExit=true
-    
-    [Install]
-    WantedBy=multi-user.target
-    ```
-    
-4. **サービス起動**
-    
-    ```
-    sudo systemctl enable --now powertop.service
-    ```
-    
-5. **確認**
-    
-    ```
-    sudo powertop
-    ```
-    
-    tab(または、[Shift]+tab)で結果を表示して、すべてGoodかどうかを確認
-    
-    ```
-    PowerTOP 2.15     Overview   Idle stats   Frequency stats   Device stats   Tunable
-    
-    >> Good          Wireless Power Saving for interface wlan0
-    >> Good          NMI watchdog should be turned off
-    >> Good          VM writeback timeout
-    ...
+    Edit your monitor configuration file accordingly (e.g., `~/.config/hypr/monitors.conf`):
+    ```bash
+    nvim ~/.config/hypr/monitors.conf
     ```
