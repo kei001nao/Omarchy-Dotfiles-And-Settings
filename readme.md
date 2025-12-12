@@ -1,9 +1,8 @@
-# maccha - omarchy theme & dotfiles
+# matcha - omarchy theme & dotfiles
 
 This repository contains personal desktop environment settings for Omarchy (Arch Linux & Hyprland).
 <details>
 <summary>日本語</summary>
-
 このリポジトリには、Omarchy (Arch Linux & Hyprland) のための個人的なデスクトップ環境設定が含まれています。
 </details>
 
@@ -61,6 +60,7 @@ This setup utilizes the following key components and configurations:
 * **Hyprland Extensions:** Pyprland
 * **Blue Light Filter:** sunsetr
 * **Input Method:** fcitx5, mozc
+* **AI**: Gemini-CLI
 * **Other**: [omarchy-theme-hook](https://github.com/imbypass/omarchy-theme-hook/tree/main), [tema](https://github.com/bjarneo/tema)
 
 
@@ -79,6 +79,7 @@ This setup utilizes the following key components and configurations:
 *   **Hyprland 拡張機能:** Pyprland
 *   **ブルーライトフィルター:** sunsetr
 *   **入力メソッド:** fcitx5, mozc
+*   **AI**: Gemini-CLI
 *   **その他**: [omarchy-theme-hook](https://github.com/imbypass/omarchy-theme-hook/tree/main), [tema](https://github.com/bjarneo/tema)
 
 </details>

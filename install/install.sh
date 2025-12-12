@@ -1,73 +1,112 @@
 #!/bin/bash
-#
-# Omarchy Dotfiles Setup Script
-#
-# This script installs packages and deploys configuration files.
-#
-# Manual steps are required for Firefox setup and for enabling services.
-# See readme.md for more details.
-#
+
+# ==============================================================================
+#  Main Dotfiles Installation Script
+#  This script orchestrates the entire setup process.
+# ==============================================================================
 
 # --- Stop on first error ---
 set -e
 
-# --- Configuration ---
-DOTFILES_DIR="$HOME/.dotfiles"
-BACKUP_DIR="$HOME/setup_backup_$(date +%Y-%m-%d)"
-PACMAN_PKGLIST="./pkglist.txt"
-AUR_PKGLIST="./aur_pkglist.txt"
+# --- Set CWD to the script's directory ---
+cd "$(dirname "$0")"
 
-# --- Helper Functions ---
-info() {
-    echo -e "\033[1;34m[INFO]\033[0m $1"
-}
+# --- Source our helper functions ---
+source ./lib.sh
 
-warning() {
-    echo -e "\033[1;33m[WARNING]\033[0m $1"
-}
+# --- Initial Setup & User Interaction ---
 
-error() {
-    echo -e "\033[1;31m[ERROR]\033[0m $1" >&2
-    exit 1
-}
+# 1. Cache sudo password
+info "Caching sudo password for the duration of the script..."
+sudo -v
+# Keep sudo timestamp updated in the background
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done &
+SUDO_LOOP_PID=$!
+trap "kill $SUDO_LOOP_PID" EXIT ERR INT TERM
 
-# --- Main Logic ---
+# 2. Check for failed tasks from a previous run
+if [ -s "$FAILED_LOG_FILE" ]; then
+    warning "Found a log of failed tasks from a previous run in $FAILED_LOG_FILE"
+    if ask_confirmation "Do you want to attempt to re-run only the failed tasks?"; then
+        info "--- Re-running Failed Tasks ---"
+        mapfile -t failed_tasks < "$FAILED_LOG_FILE"
+        > "$FAILED_LOG_FILE" # Clear the log file before re-running
 
-# 1. Package Installation
-info "Starting package installation..."
-if [ ! -f "$PACMAN_PKGLIST" ] || [ ! -f "$AUR_PKGLIST" ]; then
-    error "Package lists (pkglist.txt, aur_pkglist.txt) not found in the same directory as the script."
+        for task in "${failed_tasks[@]}"; do
+            run_task "$task"
+        done
+
+        if [ -s "$FAILED_LOG_FILE" ]; then
+            error "Some tasks failed again. Please review the output above and check the log: $FAILED_LOG_FILE"
+        else
+            info "All previously failed tasks succeeded."
+        fi
+        info "Re-run finished. Exiting."
+        exit 0
+    else
+        warning "Proceeding with a full installation run."
+    fi
 fi
 
-info "Installing packages from official repositories (pacman)..."
-sudo pacman -S --needed --noconfirm - < "$PACMAN_PKGLIST"
+# 3. Full installation run
+info "Starting a full installation run..."
+mkdir -p "$LOG_DIR"
+> "$FAILED_LOG_FILE" # Clear any old failures before a full run
 
-info "Installing packages from AUR (yay)..."
-if ! command -v yay &> /dev/null; then
-    error "'yay' is not installed. Please install it first."
+NON_INTERACTIVE=false
+read -p "Run full installation in non-interactive mode (skip all confirmations)? (y/N) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    NON_INTERACTIVE=true
+    info "Non-interactive mode enabled for full run."
+else
+    info "Interactive mode enabled. You will be prompted before each step."
 fi
-yay -S --needed --noconfirm - < "$AUR_PKGLIST"
+echo ""
 
-info "Installing omarchy-theme-hook"
-curl -fsSL https://imbypass.github.io/omarchy-theme-hook/install.sh | bash
+# --- Main Orchestration ---
+info "===== Starting Main Dotfiles Setup ====="
+echo ""
 
-info "Package installation complete."
-
-
-# 2. Deploy Dotfiles with Backup
-info "Deploying dotfiles from $DOTFILES_DIR to $HOME..."
-if [ ! -d "$DOTFILES_DIR" ]; then
-    error "Dotfiles directory not found at $DOTFILES_DIR."
+# STEP 1: OS Packages
+if ask_confirmation "Do you want to install packages (pacman & yay)?"; then
+    ./install_packages.sh
+else
+    warning "Skipping package installation."
 fi
-mkdir -p "$BACKUP_DIR"
-info "Existing files will be backed up to $BACKUP_DIR"
+echo ""
 
-rsync -av --exclude=".git" --exclude="*.md" --exclude="Package-install.txt" --exclude="tema-copy.txt" --exclude="install" \
-      --backup --backup-dir="$BACKUP_DIR" \
-      "$DOTFILES_DIR/" "$HOME/"
+# STEP 2: Hyprland Plugins
+if ask_confirmation "Do you want to install Hyprland plugins?"; then
+    ./install_hyprland_plugins.sh
+else
+    warning "Skipping Hyprland plugin installation."
+fi
+echo ""
 
-info "Dotfiles deployment complete."
+# STEP 3: Google CLI
+if ask_confirmation "Do you want to install the Google CLI?"; then
+    ./install_google_cli.sh
+else
+    warning "Skipping Google CLI installation."
+fi
+echo ""
 
-info "Setup script finished successfully!"
-echo "Please see readme.md for required manual steps (like Firefox setup and enabling services)."
+# STEP 4: Symbolic Links
+if ask_confirmation "Do you want to create symbolic links?"; then
+    ./create_links.sh
+else
+    warning "Skipping symbolic link creation."
+fi
+echo ""
+
+# --- Final Status Check ---
+if [ -s "$FAILED_LOG_FILE" ]; then
+    warning "The setup script finished, but some NON-CRITICAL tasks failed."
+    warning "Please check the log for details: $FAILED_LOG_FILE"
+else
+    info "===== Setup script finished successfully! ====="
+fi
+
+warning "Please see readme.md for any required manual steps (e.g., Firefox setup, enabling services)."
 exit 0

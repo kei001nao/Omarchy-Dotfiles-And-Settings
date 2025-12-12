@@ -12,22 +12,14 @@ set -e
 # --- Configuration ---
 DOTFILES_DIR="$HOME/.dotfiles"
 
-# --- Helper Functions ---
-info() {
-    echo -e "\033[1;34m[INFO]\033[0m $1"
-}
-
-warning() {
-    echo -e "\033[1;33m[WARNING]\033[0m $1"
-}
-
-error() {
-    echo -e "\033[1;31m[ERROR]\033[0m $1" >&2
-    exit 1
-}
-
+# --- Source our helper functions ---
+source ./lib.sh
 
 # --- Main Logic ---
+
+info "Installing omarchy-theme-hook"
+curl -fsSL https://imbypass.github.io/omarchy-theme-hook/install.sh | bash
+
 
 info "Setting up Firefox userChrome.css..."
 

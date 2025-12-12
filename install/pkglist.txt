@@ -45,6 +45,7 @@ libvirt
 virt-install
 virt-manager
 virt-viewer
+virtiofsd
 edk2-ovmf
 dnsmasq
 swtpm
