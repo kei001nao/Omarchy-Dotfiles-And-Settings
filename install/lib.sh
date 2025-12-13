@@ -8,20 +8,19 @@
 LOG_DIR="$HOME/.cache/matcha"
 FAILED_LOG_FILE="$LOG_DIR/failed_tasks.log"
 
-
-# --- Print an info message ---
+# --- Print an info message (Blue)---
 info() {
-    echo -e "\033[1;34m[INFO]\033[0m $1"
+    printf "\e[1;34m[INFO]\e[m $1\n"
 }
 
-# --- Print a warning message ---
+# --- Print a warning message (Yellow)---
 warning() {
-    echo -e "\033[1;33m[WARNING]\033[0m $1"
+    printf "\e[1;33m[WARNING]\e[m $1\n"
 }
 
-# --- Print an error message and exit ---
+# --- Print an error message and exit (Red)---
 error() {
-    echo -e "\033[1;31m[ERROR]\033[0m $1" >&2
+    printf "\e[1;33m[ERROR]\e[m $1\n" >&2
     exit 1
 }
 
@@ -35,7 +34,7 @@ ask_confirmation() {
     fi
 
     local question="$1"
-    read -p "$question (y/N) " -n 1 -r
+    read -p "$question (y/n) " -n 1 -r
     echo # Move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         return 0 # Confirmed
@@ -125,7 +124,7 @@ run_task_with_spinner() {
     mkdir -p "$LOG_DIR"
     local tmp_output_file=$(mktemp)
 
-    info "Executing task (with spinner): $command_string"
+    #info "Executing task: $command_string"
     
     set +e
     # Run command in the background, redirecting all output.

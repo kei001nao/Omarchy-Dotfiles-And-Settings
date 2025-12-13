@@ -23,7 +23,7 @@ This repository contains personal desktop environment settings for Omarchy (Arch
     
     ```bash
     cd ~/.dotfiles/install
-    chmod +x install.sh
+    chmod +x *.sh
     ./install.sh
     ```
     *Note: Review the package lists (`pkglist.txt`, `aur_pkglist.txt`) in the `install` directory before running the script if you wish to customize the installed applications.*

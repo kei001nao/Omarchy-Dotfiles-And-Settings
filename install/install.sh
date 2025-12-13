@@ -17,7 +17,10 @@ source ./lib.sh
 # --- Initial Setup & User Interaction ---
 
 # 1. Cache sudo password
-info "Caching sudo password for the duration of the script..."
+clear
+echo "Install omarchy matcha theme"
+echo ""
+info "Caching sudo password for the duration of the script...\n"
 sudo -v
 # Keep sudo timestamp updated in the background
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done &
@@ -58,15 +61,15 @@ read -p "Run full installation in non-interactive mode (skip all confirmations)?
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     NON_INTERACTIVE=true
-    info "Non-interactive mode enabled for full run."
+#    info "Non-interactive mode enabled for full run."
 else
     info "Interactive mode enabled. You will be prompted before each step."
 fi
 echo ""
 
 # --- Main Orchestration ---
-info "===== Starting Main Dotfiles Setup ====="
-echo ""
+#info "===== Starting Main Dotfiles Setup ====="
+#echo ""
 
 # STEP 1: OS Packages
 if ask_confirmation "Do you want to install packages (pacman & yay)?"; then
@@ -79,10 +82,12 @@ echo ""
 # STEP 2: Hyprland Plugins
 if ask_confirmation "Do you want to install Hyprland plugins?"; then
     ./install_hyprland_plugins.sh
-else
-    warning "Skipping Hyprland plugin installation."
+#else
+#    warning "Skipping Hyprland plugin installation."
 fi
-echo ""
+
+clear
+#echo ""
 
 # STEP 3: Google CLI
 if ask_confirmation "Do you want to install the Google CLI?"; then
@@ -95,18 +100,21 @@ echo ""
 # STEP 4: Symbolic Links
 if ask_confirmation "Do you want to create symbolic links?"; then
     ./create_links.sh
-else
-    warning "Skipping symbolic link creation."
+#else
+#    warning "Skipping symbolic link creation."
 fi
-echo ""
+#echo ""
 
+
+clear
 # --- Final Status Check ---
 if [ -s "$FAILED_LOG_FILE" ]; then
     warning "The setup script finished, but some NON-CRITICAL tasks failed."
     warning "Please check the log for details: $FAILED_LOG_FILE"
 else
     info "===== Setup script finished successfully! ====="
+    echo ""
+    warning "Please see readme.md for any required manual steps (e.g., Firefox setup, enabling services)."
 fi
 
-warning "Please see readme.md for any required manual steps (e.g., Firefox setup, enabling services)."
 exit 0

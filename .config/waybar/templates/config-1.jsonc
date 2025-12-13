@@ -77,14 +77,14 @@
     "interval": 21600
   },
   "custom/updatespacman": {
-    "format": "{icon}",
+    "format": "{}{icon}",
     "return-type": "json",
     "format-icons": {
       "has-updates": "󰏖",
-      "updated": "󰂪"
+      "updated": ""     //"󰂪"
     },
     "exec-if": "which waybar-module-pacman-updates",
-    "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300"
+    "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --color-semver-updates --no-zero-output"
   },
    "hyprland/window": {
     "format": "{title} - {class}",
@@ -221,7 +221,7 @@
         "format": "{}°",
         "tooltip": true,
         "interval": 1800,
-        "exec": "wttrbar --nerd --location Sakai-shi",
+        "exec": "wttrbar --nerd --location (your location)",
         "return-type": "json"
   },
   "pulseaudio": {

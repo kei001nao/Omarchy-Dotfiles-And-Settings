@@ -5,6 +5,12 @@ BRIGHTNESS_DAY="70%"
 BRIGHTNESS_NIGHT="60%"
 
 case "$PRESET_STR" in
+  "status")
+    output=$(sunsetr status)
+    #brightnessctl set $brightstr
+    notify-send -u critical "Sunsetr Status" "$output"  #\n   Brightness: $brightstr"
+    exit 0
+    ;;
   "day")
     prestr="day"
     #brightstr="$BRIGHTNESS_DAY"
@@ -22,7 +28,7 @@ case "$PRESET_STR" in
     #brightstr="$BRIGHTNESS_DAY"
     ;;
   "start")
-    # Start sunsetr with preset based on day of week
+    # Start sunsetr. with preset based on day of week
     day=$(date +%u)  # 1=Monday, 7=Sunday
 
     if [ $day -ge 1 ] && [ $day -le 5 ]; then
@@ -52,6 +58,6 @@ fi
 
 brightnessctl set $brightstr
 
-notify-send -u critical "Setting Sunsetr" "$output"
+notify-send -u critical "Setting Sunsetr" "$output\n   Brightness: $brightstr"
 
 exit 0
